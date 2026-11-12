@@ -2,7 +2,7 @@
 
 Tracking doc for building the project described in [description.md](description.md).
 
-**Status:** Milestone 1 in progress — environment fully set up and verified; no commits yet.
+**Status:** Milestone 1 complete — Gemini call works end to end. Next: Milestone 2 (load + chunk).
 **Last updated:** 2026-11-12
 
 ---
@@ -41,10 +41,10 @@ RAG most bugs live in the boring middle — chunking and metadata — not in the
 - [x] `requirements.txt` (5 direct deps, exact pins)
 - [x] `.gitignore` (covers `.env`, `chroma/`, `__pycache__/`, `.venv/`)
 - [x] Install deps and verify all five import
-- [ ] `.env.example` committed; real `.env` never committed
-- [ ] Get a Gemini API key from Google AI Studio (free tier is plenty here)
-- [ ] ~10-line smoke test: send "hello" to Gemini, print the reply
-- [ ] First git commit
+- [x] `.env.example` committed; real `.env` never committed (verified: `.env` absent from all history)
+- [x] Get a Gemini API key from Google AI Studio (free tier is plenty here)
+- [x] ~10-line smoke test: send "hello" to Gemini, print the reply (`smoke-test.py`)
+- [x] First git commit (`5bf0ccc`, pushed to `origin/main` on GitHub)
 
 **Done when:** the smoke test prints a real model response.
 
@@ -129,9 +129,11 @@ app.py      thin Streamlit wrapper (milestone 5)
 
 ## Open questions
 
-- [ ] Confirm current Gemini model names in AI Studio docs before coding — specifically the
-      embedding model (look for `gemini-embedding-001`) and which chat model to use. Don't
-      trust remembered model IDs; they go stale.
+- [x] Chat model: `gemini-3.8-flash`, called via the Interactions API
+      (`client.interactions.create(model=..., input=...)` → `.output_text`). Verified working
+      in `smoke-test.py`.
+- [ ] Embedding model: confirm the current name in the Gemini API docs before Milestone 3
+      (look for `gemini-embedding-001`). Don't trust remembered model IDs; they go stale.
 - [ ] Pick the test PDF for milestones 2–5.
 
 ---
